@@ -30,7 +30,9 @@ export default function ProductList() {
         setFilteredProducts(data);
 
         const uniqueCategories = Array.from(
-          new Set(data.map((product) => product.category).filter(Boolean))
+          new Set(
+            data.map((product) => product.category ?? "Outros").filter(Boolean)
+          )
         );
 
         setCategories(uniqueCategories);
