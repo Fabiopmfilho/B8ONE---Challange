@@ -5,9 +5,9 @@ type ProductCardProps = {
   product: Product;
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCardList({ product }: ProductCardProps) {
   return (
-    <div className="flex flex-col h-full rounded-xl p-4 shadow hover:shadow-lg transition">
+    <div className="flex flex-row gap-6 h-full rounded-xl p-4 shadow hover:shadow-lg transition">
       <div className="flex justify-center items-center mb-4 h-48">
         <Image
           src={product.image}

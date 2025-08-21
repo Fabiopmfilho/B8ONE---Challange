@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { Product } from "@/app/types/Product";
-import ProductCard from "./ProductCard";
 import { FilterOptions } from "@/app/types/FilterOptions";
 import FilterComponent from "./Filter";
+import ProductCardList from "./ProductCardList";
+import ProductCardGrid from "./ProductCardGrid";
 
 export default function ProductList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -66,9 +68,7 @@ export default function ProductList() {
 
   return (
     <div className="container mx-auto px-4 py-6">
-      {/* GRID: 1 coluna no mobile, 2 colunas no desktop */}
       <div className="grid grid-cols-1 md:grid-cols-[16rem_1fr] gap-6">
-        {/* FILTRO: em cima no mobile, lateral no desktop */}
         <div className="md:order-none md:sticky md:top-6 h-fit">
           <FilterComponent
             onFiltersChange={handleFiltersChange}
@@ -76,19 +76,53 @@ export default function ProductList() {
           />
         </div>
 
-        {/* PRODUTOS */}
         <div>
-          <div className="mb-4">
+          <div className="flex justify-between items-center mb-4">
             <p className="text-gray-600">
               Mostrando {filteredProducts.length} de {products.length} produtos
             </p>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setViewMode("grid")}
+                className={`px-3 py-1 rounded-md border ${
+                  viewMode === "grid"
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : "bg-white text-gray-700 border-gray-300"
+                }`}
+              >
+                🔲
+              </button>
+              <button
+                onClick={() => setViewMode("list")}
+                className={`px-3 py-1 rounded-md border ${
+                  viewMode === "list"
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : "bg-white text-gray-700 border-gray-300"
+                }`}
+              >
+                📋
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {viewMode === "grid" ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {filteredProducts.map((product) => (
+                <div key={product.id}>
+                  <ProductCardGrid key={product.id} product={product} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col gap-4">
+              {filteredProducts.map((product) => (
+                <div key={product.id}>
+                  <ProductCardList key={product.id} product={product} />
+                </div>
+              ))}
+            </div>
+          )}
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-12">
