@@ -32,15 +32,15 @@ export default function FilterComponent({
     <div className="bg-gray-50 p-6 rounded-lg mb-6">
       <h2 className="text-xl font-semibold mb-4">Filtros</h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
+      <div className="flex flex-row md:flex-col gap-4">
+        <div className="flex-1 flex flex-col justify-between">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Categoria
           </label>
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full h-10 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="">Todas as categorias</option>
             {categories.map((category) => (
@@ -51,7 +51,7 @@ export default function FilterComponent({
           </select>
         </div>
 
-        <div>
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Preço Mínimo (R$)
           </label>
@@ -61,11 +61,11 @@ export default function FilterComponent({
             onChange={(e) => setMinPrice(Number(e.target.value))}
             min="0"
             step="0.01"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full h-10 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
 
-        <div>
+        <div className="flex-1">
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Preço Máximo (R$)
           </label>
@@ -75,7 +75,7 @@ export default function FilterComponent({
             onChange={(e) => setMaxPrice(Number(e.target.value))}
             min="0"
             step="0.01"
-            className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full h-10 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           />
         </div>
       </div>
