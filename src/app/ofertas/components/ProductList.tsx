@@ -4,16 +4,11 @@ import { useEffect, useState, useCallback } from "react";
 import { Product } from "@/app/types/Product";
 import { FilterOptions } from "@/app/types/FilterOptions";
 import FilterComponent from "./Filter";
-import ProductCardList from "./ProductCardList";
-import ProductCardGrid from "./ProductCardGrid";
-import {
-  LayoutGridIcon,
-  ListIcon,
-  ChevronsRightIcon,
-  ChevronsLeftIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "lucide-react";
+import ProductDisplay from "./ProductDisplay";
+import Pagination from "./Pagination";
+import ResultsSummary from "./ResultsSummary";
+import ViewModeToggle from "./ViewModeToggle";
+import { ProductCardSkeletonGrid, ProductCardSkeletonList } from "./Skeleton";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -69,7 +64,8 @@ const ProductList = () => {
 
       filtered = filtered.filter((product) => {
         return (
-          product.price >= filters.minPrice && product.price <= filters.maxPrice
+          product.price >= (filters.minPrice ?? 0) &&
+          product.price <= (filters.maxPrice ?? Infinity)
         );
       });
 
@@ -84,54 +80,42 @@ const ProductList = () => {
   const endIndex = startIndex + itemsPerPage;
   const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
-  const handlePageClick = (page: number) => {
+  const handlePageChange = (page: number) => {
     if (page !== currentPage && page >= 1 && page <= totalPages) {
       setCurrentPage(page);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const getVisiblePageNumbers = () => {
-    const pages: (number | string)[] = [];
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= 5; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      } else if (currentPage >= totalPages - 2) {
-        pages.push(1);
-        pages.push("...");
-        for (let i = totalPages - 4; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        pages.push(1);
-        pages.push("...");
-        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
-          pages.push(i);
-        }
-        pages.push("...");
-        pages.push(totalPages);
-      }
-    }
-
-    return pages;
-  };
-
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando produtos...</p>
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid grid-cols-1 md:grid-cols-[16rem_1fr] gap-6">
+          <div className="md:order-none md:sticky md:top-6 h-fit">
+            <ProductCardSkeletonGrid />
+          </div>
+          <div>
+            <div className="flex justify-between items-center mb-6">
+              <div className="h-6 bg-gray-200 rounded w-1/3 animate-pulse"></div>
+              <div className="flex gap-2">
+                <div className="h-10 w-10 bg-gray-200 rounded-md animate-pulse"></div>
+                <div className="h-10 w-10 bg-gray-200 rounded-md animate-pulse"></div>
+              </div>
+            </div>
+            {viewMode === "grid" ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {Array.from({ length: itemsPerPage }).map((_, index) => (
+                  <ProductCardSkeletonGrid key={`skeleton-grid-${index}`} />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col gap-4">
+                {Array.from({ length: itemsPerPage }).map((_, index) => (
+                  <ProductCardSkeletonList key={`skeleton-list-${index}`} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
@@ -149,64 +133,23 @@ const ProductList = () => {
 
         <div>
           <div className="flex justify-between items-center mb-6">
-            <div className="text-sm text-gray-600">
-              <p>
-                Mostrando {currentProducts.length > 0 ? startIndex + 1 : 0} -{" "}
-                {Math.min(endIndex, filteredProducts.length)} de{" "}
-                {filteredProducts.length} produtos
-              </p>
-            </div>
-
-            <div className="flex gap-2">
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`p-2 rounded-md border transition-colors ${
-                  viewMode === "grid"
-                    ? "bg-blue-500 text-white border-blue-500"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                }`}
-              >
-                <LayoutGridIcon size={18} />
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className={`p-2 rounded-md border transition-colors ${
-                  viewMode === "list"
-                    ? "bg-blue-500 text-white border-blue-500"
-                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
-                }`}
-              >
-                <ListIcon size={18} />
-              </button>
-            </div>
+            <ResultsSummary
+              startIndex={startIndex}
+              endIndex={endIndex}
+              totalItems={filteredProducts.length}
+            />
+            <ViewModeToggle
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+            />
           </div>
 
           {currentProducts.length > 0 ? (
-            <div className="mb-8">
-              {viewMode === "grid" ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {currentProducts.map((product, index) => (
-                    <div
-                      key={`product-${currentPage}-${index}-${product.id}`}
-                      className="relative"
-                    >
-                      <ProductCardGrid product={product} />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="flex flex-col gap-4">
-                  {currentProducts.map((product, index) => (
-                    <div
-                      key={`product-list-${currentPage}-${index}-${product.id}`}
-                      className="relative"
-                    >
-                      <ProductCardList product={product} />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductDisplay
+              products={currentProducts}
+              viewMode={viewMode}
+              currentPage={currentPage}
+            />
           ) : (
             <div className="text-center py-12">
               <div className="text-6xl text-gray-300 mb-4">🔍</div>
@@ -217,94 +160,11 @@ const ProductList = () => {
           )}
 
           {totalPages > 1 && (
-            <div className="border-t pt-6 sm:pt-6">
-              <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-4">
-                <div className="text-xs sm:text-sm text-gray-600 order-2 sm:order-1">
-                  Página {currentPage} de {totalPages}
-                </div>
-
-                <div className="flex items-center gap-1 sm:hidden order-1 sm:order-2">
-                  <button
-                    onClick={() => handlePageClick(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 text-xs border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center justify-center min-w-[36px] h-[32px]"
-                  >
-                    <ChevronLeftIcon size={14} />
-                  </button>
-
-                  <span className="px-3 py-2 text-xs bg-blue-500 text-white rounded-md min-w-[40px] h-[32px] flex items-center justify-center">
-                    {currentPage}
-                  </span>
-
-                  <button
-                    onClick={() => handlePageClick(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-xs border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center justify-center min-w-[36px] h-[32px]"
-                  >
-                    <ChevronRightIcon size={14} />
-                  </button>
-                </div>
-
-                <div className="hidden sm:flex items-center gap-2 order-1 sm:order-2">
-                  <button
-                    onClick={() => handlePageClick(1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-[44px] h-[40px] flex items-center justify-center"
-                  >
-                    <ChevronsLeftIcon size={16} />
-                  </button>
-
-                  <button
-                    onClick={() => handlePageClick(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 h-[40px] flex items-center gap-1"
-                  >
-                    <ChevronLeftIcon size={16} />
-                    Anterior
-                  </button>
-
-                  <div className="flex gap-1">
-                    {getVisiblePageNumbers().map((pageNum, index) => (
-                      <button
-                        key={`page-btn-${index}`}
-                        onClick={() =>
-                          typeof pageNum === "number"
-                            ? handlePageClick(pageNum)
-                            : undefined
-                        }
-                        disabled={pageNum === "..."}
-                        className={`px-3 py-2 text-sm rounded-md transition-colors min-w-[40px] h-[40px] flex items-center justify-center ${
-                          pageNum === currentPage
-                            ? "bg-blue-500 text-white"
-                            : pageNum === "..."
-                            ? "text-gray-400 cursor-default"
-                            : "bg-white text-gray-700 border border-gray-300 hover:bg-blue-50 hover:border-blue-300"
-                        }`}
-                      >
-                        {pageNum}
-                      </button>
-                    ))}
-                  </div>
-
-                  <button
-                    onClick={() => handlePageClick(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 h-[40px] flex items-center gap-1"
-                  >
-                    Próxima
-                    <ChevronRightIcon size={16} />
-                  </button>
-
-                  <button
-                    onClick={() => handlePageClick(totalPages)}
-                    disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-[44px] h-[40px] flex items-center justify-center"
-                  >
-                    <ChevronsRightIcon size={16} />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           )}
         </div>
       </div>
