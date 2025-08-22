@@ -29,6 +29,16 @@ git clone https://github.com/seu-usuario/nome-do-projeto.git
 cd nome-do-projeto
 ```
 
+### Resultados do lighthouse
+
+#### Mobile
+
+![mobile](public/mobile.png)
+
+#### Desktop
+
+![desktop](public/desktop.png)
+
 ### Instalando dependências
 
 ```bash
@@ -48,8 +58,6 @@ npm run dev
 # Com yarn
 yarn dev
 ```
-
-O projeto estará disponível em `http://localhost:3000`
 
 ## 📁 Estrutura do Projeto
 
