@@ -6,10 +6,10 @@ type ProductFiltersProps = {
   categories: string[];
 };
 
-export default function FilterComponent({
+const FilterComponent = ({
   onFiltersChange,
   categories,
-}: ProductFiltersProps) {
+}: ProductFiltersProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000);
@@ -90,4 +90,6 @@ export default function FilterComponent({
       </div>
     </div>
   );
-}
+};
+
+export default FilterComponent;

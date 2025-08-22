@@ -1,7 +1,7 @@
 import Image from "next/image";
 import ProductList from "./components/ProductList";
 
-export default async function OfertasPage() {
+const OfertasPage = async () => {
   return (
     <main className="p-6 max-w-6xl mx-auto">
       <div className="w-full h-64 relative mb-10">
@@ -14,9 +14,11 @@ export default async function OfertasPage() {
         />
       </div>
 
-      <h1 className="text-3xl font-bold mb-8 text-center">Ofertas</h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Ofertas da Semana</h1>
 
       <ProductList />
     </main>
   );
-}
+};
+
+export default OfertasPage;

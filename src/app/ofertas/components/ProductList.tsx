@@ -15,7 +15,7 @@ import {
   ChevronRightIcon,
 } from "lucide-react";
 
-export default function ProductList() {
+const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -310,4 +310,6 @@ export default function ProductList() {
       </div>
     </div>
   );
-}
+};
+
+export default ProductList;

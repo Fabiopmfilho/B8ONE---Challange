@@ -5,7 +5,7 @@ type ProductCardProps = {
   product: Product;
 };
 
-export default function ProductCardList({ product }: ProductCardProps) {
+const ProductCardList = ({ product }: ProductCardProps) => {
   return (
     <div className="flex flex-row gap-6 h-full rounded-xl p-4 shadow hover:shadow-lg transition">
       <div className="flex justify-center items-center mb-4 h-48">
@@ -14,7 +14,7 @@ export default function ProductCardList({ product }: ProductCardProps) {
           alt={product.title}
           width={200}
           height={200}
-          className="object-contain h-full w-auto"
+          className="object-contain h-full w-28 max-w-28 md:w-52 md:max-w-52"
         />
       </div>
 
@@ -23,7 +23,7 @@ export default function ProductCardList({ product }: ProductCardProps) {
           {product.title}
         </h2>
         <div className="mt-auto">
-          <p className="text-xl font-bold text-green-600 mb-4">
+          <p className="text-2xl font-bold text-black mb-4">
             R$ {product.price.toFixed(2)}
           </p>
           <button className="w-full bg-blue-600 text-white py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
@@ -33,4 +33,6 @@ export default function ProductCardList({ product }: ProductCardProps) {
       </div>
     </div>
   );
-}
+};
+
+export default ProductCardList;
