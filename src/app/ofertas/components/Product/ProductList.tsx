@@ -3,12 +3,15 @@
 import { useEffect, useState, useCallback } from "react";
 import { Product } from "@/app/types/Product";
 import { FilterOptions } from "@/app/types/FilterOptions";
-import FilterComponent from "./Filter";
+import FilterComponent from "../Filters/Filter";
 import ProductDisplay from "./ProductDisplay";
-import Pagination from "./Pagination";
-import ResultsSummary from "./ResultsSummary";
-import ViewModeToggle from "./ViewModeToggle";
-import { ProductCardSkeletonGrid, ProductCardSkeletonList } from "./Skeleton";
+import Pagination from "../../../components/Pagination";
+import ResultsSummary from "../Filters/ResultsSummary";
+import ViewModeToggle from "../ViewModeToggle";
+import {
+  ProductCardSkeletonGrid,
+  ProductCardSkeletonList,
+} from "../../../components/Skeleton";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);

@@ -61,13 +61,20 @@ src/
 ├──── components/
 │     └── Header.tsx        # Componente do cabeçalho
 │     └── Footer.tsx        # Componente do rodapé
+│     └── Pagination.tsx          # Componente de Paginação
+│     └── Skeleton.tsx            # Componente de skeleton para loading da lista de produtos
 ├──── ofertas/
 │       └── page.tsx        # Página de ofertas
 ├──────── components/
-│         └── Filter.tsx              # Componente de Filtro
-│         └── ProductCardGrid.tsx     # Componente de produtos em grid
-│         └── ProductCardList.tsx     # Componente de produtos em lista
-│         └── ProductList.tsx         # Componente de listagem produtos
+│         └── ViewModeToggle.tsx      # Componente dos botões do tipo de visualização para os produtos
+├────────── Filters/
+│           └── Filter.tsx              # Componente de Filtro
+│           └── ResultsSummary.tsx      # Componente responsável por mostrar a quantidade de produtos
+├────────── Product/
+│           └── ProductCardGrid.tsx     # Componente de produtos em grid
+│           └── ProductCardList.tsx     # Componente de produtos em lista
+│           └── ProductDisplay.tsx      # Componente para renderização dos produtos
+│           └── ProductList.tsx         # Componente de listagem produtos
 ├──── styles/
 │     └── globals.css       # Estilos globais
 └── ...
@@ -86,6 +93,7 @@ src/
 - [x] Página responsiva
 - [x] Integração com API
 - [x] Paginação de produtos
+- [x] Skeleton na renderização de produtos
 - [x] Visualização dos produtos em Lista e em Grid
 
 ## 👤 Autor

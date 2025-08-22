@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ProductList from "./components/ProductList";
+import ProductList from "./components/Product/ProductList";
 
 const OfertasPage = async () => {
   return (
