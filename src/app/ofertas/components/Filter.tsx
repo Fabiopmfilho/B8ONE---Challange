@@ -11,21 +11,21 @@ const FilterComponent = ({
   categories,
 }: ProductFiltersProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1000);
+  const [minPrice, setMinPrice] = useState<string>("");
+  const [maxPrice, setMaxPrice] = useState<string>("");
 
   useEffect(() => {
     onFiltersChange({
       category: selectedCategory,
-      minPrice,
-      maxPrice,
+      minPrice: minPrice ? Number(minPrice) : 0,
+      maxPrice: maxPrice ? Number(maxPrice) : 1000,
     });
   }, [selectedCategory, minPrice, maxPrice, onFiltersChange]);
 
   const clearFilters = () => {
     setSelectedCategory("");
-    setMinPrice(0);
-    setMaxPrice(1000);
+    setMinPrice("");
+    setMaxPrice("");
   };
 
   return (
@@ -58,7 +58,8 @@ const FilterComponent = ({
           <input
             type="number"
             value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
+            placeholder="0"
+            onChange={(e) => setMinPrice(e.target.value)}
             min="0"
             step="0.01"
             className="w-full h-10 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -72,7 +73,8 @@ const FilterComponent = ({
           <input
             type="number"
             value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            placeholder="1000"
+            onChange={(e) => setMaxPrice(e.target.value)}
             min="0"
             step="0.01"
             className="w-full h-10 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
