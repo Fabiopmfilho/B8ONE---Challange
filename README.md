@@ -1,6 +1,4 @@
-# Nome do Projeto
-
-Desafio da B8ONE
+# Desafio da B8ONE
 
 ## 📋 Sobre o Projeto
 
