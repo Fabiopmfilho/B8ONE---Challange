@@ -5,6 +5,10 @@
 Este projeto foi desenvolvido como um exercício prático para simular
 uma vitrine de produtos online.
 
+## 📋 Link do projeto hospedado na vercel
+
+https://b8-one-challange.vercel.app/
+
 ## 🚀 Tecnologias Utilizadas
 
 - [React](https://reactjs.org/) - Biblioteca para interfaces de usuário
