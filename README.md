@@ -9,6 +9,16 @@ uma vitrine de produtos online.
 
 https://b8-one-challange.vercel.app/
 
+## 💡 Resultados do lighthouse
+
+### Mobile
+
+![mobile](public/mobile.png)
+
+### Desktop
+
+![desktop](public/desktop.png)
+
 ## 🚀 Tecnologias Utilizadas
 
 - [React](https://reactjs.org/) - Biblioteca para interfaces de usuário
@@ -32,16 +42,6 @@ Antes de começar, você vai precisar ter instalado em sua máquina:
 git clone https://github.com/seu-usuario/nome-do-projeto.git
 cd nome-do-projeto
 ```
-
-### Resultados do lighthouse
-
-#### Mobile
-
-![mobile](public/mobile.png)
-
-#### Desktop
-
-![desktop](public/desktop.png)
 
 ### Instalando dependências
 
