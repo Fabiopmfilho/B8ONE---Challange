@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nome do Projeto
 
-## Getting Started
+Desafio da B8ONE
 
-First, run the development server:
+## 📋 Sobre o Projeto
+
+Este projeto foi desenvolvido como um exercício prático para simular
+uma vitrine de produtos online.
+
+## 🚀 Tecnologias Utilizadas
+
+- [React](https://reactjs.org/) - Biblioteca para interfaces de usuário
+- [Next.js](https://nextjs.org/) - Framework React para produção
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS para estilização
+- [TypeScript](https://www.typescriptlang.org/) - Superset JavaScript com tipagem
+
+## 🔧 Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina:
+
+- [Node.js](https://nodejs.org/en/) (versão 18 ou superior)
+- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
+
+## 🎯 Instalação e Execução
+
+### Clonando o repositório
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/nome-do-projeto.git
+cd nome-do-projeto
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Instalando dependências
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# Com npm
+npm install
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Com yarn
+yarn install
+```
 
-## Learn More
+### Executando o projeto
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Com npm
+npm run dev
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Com yarn
+yarn dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+O projeto estará disponível em `http://localhost:3000`
 
-## Deploy on Vercel
+## 📁 Estrutura do Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├──── app/
+│     ├── page.tsx          # Página principal
+│     └── layout.tsx        # Layout base
+├──── components/
+│     └── Header.tsx        # Componente do cabeçalho
+│     └── Footer.tsx        # Componente do rodapé
+├──── ofertas/
+│       └── page.tsx        # Página de ofertas
+├──────── components/
+│         └── Filter.tsx              # Componente de Filtro
+│         └── ProductCardGrid.tsx     # Componente de produtos em grid
+│         └── ProductCardList.tsx     # Componente de produtos em lista
+│         └── ProductList.tsx         # Componente de listagem produtos
+├──── styles/
+│     └── globals.css       # Estilos globais
+└── ...
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Scripts Disponíveis
+
+- `npm run dev` - Executa o projeto em modo de desenvolvimento
+- `npm run build` - Cria a build de produção
+- `npm run start` - Executa a build de produção
+- `npm run lint` - Executa o linter do código
+
+## ✨ Funcionalidades
+
+- [x] Filtros
+- [x] Página responsiva
+- [x] Integração com API
+- [x] Paginação de produtos
+- [x] Visualização dos produtos em Lista e em Grid
+
+## 👤 Autor
+
+**Fábio Filho**
+
+- GitHub: [@seu-usuario](https://github.com/Fabiopmfilho)
+- LinkedIn: [Seu Perfil](https://www.linkedin.com/in/fabiopm-filho/)
