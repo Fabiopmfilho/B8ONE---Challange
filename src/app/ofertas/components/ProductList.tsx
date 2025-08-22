@@ -9,10 +9,10 @@ import ProductCardGrid from "./ProductCardGrid";
 import {
   LayoutGridIcon,
   ListIcon,
-  ChevronLeft,
-  ChevronRight,
   ChevronsRightIcon,
   ChevronsLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
 } from "lucide-react";
 
 export default function ProductList() {
@@ -218,26 +218,48 @@ export default function ProductList() {
 
           {totalPages > 1 && (
             <div className="border-t pt-6 sm:pt-6">
-              <div className="flex flex-col sm:flex-row items-center gap-3 justify-between">
-                <div className="text-sm text-gray-600">
+              <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-between sm:gap-4">
+                <div className="text-xs sm:text-sm text-gray-600 order-2 sm:order-1">
                   Página {currentPage} de {totalPages}
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:hidden order-1 sm:order-2">
+                  <button
+                    onClick={() => handlePageClick(currentPage - 1)}
+                    disabled={currentPage === 1}
+                    className="px-3 py-2 text-xs border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center justify-center min-w-[36px] h-[32px]"
+                  >
+                    <ChevronLeftIcon size={14} />
+                  </button>
+
+                  <span className="px-3 py-2 text-xs bg-blue-500 text-white rounded-md min-w-[40px] h-[32px] flex items-center justify-center">
+                    {currentPage}
+                  </span>
+
+                  <button
+                    onClick={() => handlePageClick(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    className="px-3 py-2 text-xs border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center justify-center min-w-[36px] h-[32px]"
+                  >
+                    <ChevronRightIcon size={14} />
+                  </button>
+                </div>
+
+                <div className="hidden sm:flex items-center gap-2 order-1 sm:order-2">
                   <button
                     onClick={() => handlePageClick(1)}
                     disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-[44px] h-[40px] flex items-center justify-center"
                   >
-                    <ChevronsLeftIcon />
+                    <ChevronsLeftIcon size={16} />
                   </button>
 
                   <button
                     onClick={() => handlePageClick(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 h-[40px] flex items-center gap-1"
                   >
-                    <ChevronLeft size={16} />
+                    <ChevronLeftIcon size={16} />
                     Anterior
                   </button>
 
@@ -251,7 +273,7 @@ export default function ProductList() {
                             : undefined
                         }
                         disabled={pageNum === "..."}
-                        className={`px-3 py-2 text-sm rounded-md transition-colors min-w-[40px] ${
+                        className={`px-3 py-2 text-sm rounded-md transition-colors min-w-[40px] h-[40px] flex items-center justify-center ${
                           pageNum === currentPage
                             ? "bg-blue-500 text-white"
                             : pageNum === "..."
@@ -267,18 +289,18 @@ export default function ProductList() {
                   <button
                     onClick={() => handlePageClick(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 flex items-center gap-1"
+                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 h-[40px] flex items-center gap-1"
                   >
                     Próxima
-                    <ChevronRight size={16} />
+                    <ChevronRightIcon size={16} />
                   </button>
 
                   <button
                     onClick={() => handlePageClick(totalPages)}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
+                    className="px-3 py-2 text-sm border rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 min-w-[44px] h-[40px] flex items-center justify-center"
                   >
-                    <ChevronsRightIcon />
+                    <ChevronsRightIcon size={16} />
                   </button>
                 </div>
               </div>
