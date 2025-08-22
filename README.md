@@ -100,5 +100,5 @@ src/
 
 **Fábio Filho**
 
-- GitHub: [@seu-usuario](https://github.com/Fabiopmfilho)
-- LinkedIn: [Seu Perfil](https://www.linkedin.com/in/fabiopm-filho/)
+- GitHub: [@Fabiopmfilho](https://github.com/Fabiopmfilho)
+- LinkedIn: [fabiopm-filho](https://www.linkedin.com/in/fabiopm-filho/)
