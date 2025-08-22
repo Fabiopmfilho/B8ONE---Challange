@@ -217,8 +217,8 @@ export default function ProductList() {
           )}
 
           {totalPages > 1 && (
-            <div className="border-t pt-6">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="border-t pt-6 sm:pt-6">
+              <div className="flex flex-col sm:flex-row items-center gap-3 justify-between">
                 <div className="text-sm text-gray-600">
                   Página {currentPage} de {totalPages}
                 </div>
